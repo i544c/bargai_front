@@ -50,9 +50,17 @@
     is_open(open) {
       let s = new Date();
       let e = new Date();
-      s.setHours(open.start.split(':')[0], open.start.split(':')[1]);
-      e.setHours(open.end.split(':')[0],   open.end.split(':')[1]);
-      return s < new Date() && e > new Date();
+      let n = new Date();
+      let s_h, s_m, e_h, e_m;
+      [s_h, s_m] = open.start.split(':');
+      [e_h, e_m] = open.end.split(':');
+      s.setHours(s_h, s_m);
+      e.setHours(e_h, e_m);
+      if(e_h > 24 && n.getHours() < 5) {
+        s.setDate(s.getDate() - 1);
+        e.setDate(e.getDate() - 1);
+      }
+      return s < n && e > n;
     }
   }
   customElements.define(XMap.is, XMap);
