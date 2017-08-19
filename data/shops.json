@@ -1,0 +1,27 @@
+[
+  {
+    "shopname": "rouge koume",
+    "description": "可愛い店員さんが働いています。",
+    "position": {
+      "lat": 41.7724391,
+      "lng": 140.7265982
+    },
+    "open": {
+      "start": "16:00",
+      "end": "24:00"
+    }
+  },
+
+  {
+    "shopname": "shimeji",
+    "description": "超きのこ",
+    "position": {
+      "lat": 41.774927,
+      "lng": 140.731406
+    },
+    "open": {
+      "start": "15:00",
+      "end": "23:00"
+    }
+  }
+]
