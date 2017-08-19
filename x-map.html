@@ -27,7 +27,7 @@
         <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]">
           <p><b>[[item.shopname]]</b></p>
           <small>[[item.description]]</small>
-          <p>[[is_open(item.open)]]</p>
+          <p>[[is_open_string(item)]]</p>
         </google-map-marker>
       </template>
 
@@ -37,6 +37,10 @@
   <script>
   class XMap extends Polymer.Element {
     static get is() {return 'x-map';}
+    is_open_string(shop) {
+      //TODO: ココで開いている店舗のリストを作って、表示したい。
+      return this.is_open(shop.open) ? "営業中" : "本日の営業は終了しました";
+    }
     is_open(open) {
       let s = new Date();
       let e = new Date();
