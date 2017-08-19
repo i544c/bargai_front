@@ -27,6 +27,7 @@
         <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]">
           <p><b>[[item.shopname]]</b></p>
           <small>[[item.description]]</small>
+          <p>[[is_open(item.open)]]</p>
         </google-map-marker>
       </template>
 
@@ -36,7 +37,14 @@
   <script>
   class XMap extends Polymer.Element {
     static get is() {return 'x-map';}
+    is_open(open) {
+      let s = new Date();
+      let e = new Date();
+      s.setHours(open.start.split(':')[0], open.start.split(':')[1]);
+      e.setHours(open.end.split(':')[0],   open.end.split(':')[1]);
+      return s < new Date() && e > new Date();
+    }
   }
-  customElements.define(XMap.is, XMap)
+  customElements.define(XMap.is, XMap);
   </script>
 </dom-module>
