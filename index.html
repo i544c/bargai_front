@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
   <title>bargai map</title>
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="bower_components/app-layout/app-layout.html">
@@ -40,7 +41,7 @@
           <div main-title>Sake Map</div>
         </app-toolbar>
       </app-header>
-      <google-map disable-default-ui
+      <google-map disable-default-ui gesture-handling="greedy"
         latitude="41.7741117" longitude="140.7209939" zoom="14">
         <google-map-marker slot="markers" latitude="41.7724391" longitude="140.7265982">
           <div>Hello!</div>
