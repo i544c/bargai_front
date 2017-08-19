@@ -6,12 +6,10 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>bargai map</title>
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="bower_components/polymer/polymer.html">
-  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
   <link rel="import" href="bower_components/app-layout/app-layout.html">
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="bower_components/iron-icons/iron-icons.html">
-  <link rel="import" href="bower_components/google-map/google-map.html">
+  <link rel="import" href="x-map.html">
   <style is="custom-style">
   body {
     margin: 0;
@@ -24,22 +22,11 @@
     color: white;
     --app-toolbar-font-size: 24px;
   }
-  google-map {
-    width: 100%;
-    height: 100vh;
-    height: -webkit-calc(100vh - 64px);
-    height: calc(100vh - 64px);
-  }
   </style>
 </head>
 <body>
   <dom-bind>
     <template>
-      <iron-ajax
-        auto
-        url="data/shops.json"
-        last-response="{{shops}}"
-      ></iron-ajax>
       <app-drawer-layout>
         <app-drawer slot="drawer">
           drawer-content
@@ -51,18 +38,7 @@
               <div main-title>Sake Map</div>
             </app-toolbar>
           </app-header>
-          <google-map disable-default-ui single-info-window
-            gesture-handling="greedy"
-            latitude="41.7741117" longitude="140.7209939" zoom="14" min-zoom="14">
-
-            <template is="dom-repeat" items="[[shops]]">
-              <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]">
-                <p><b>[[item.shopname]]</b></p>
-                <small>[[item.description]]</small>
-              </google-map-marker>
-            </template>
-
-          </google-map>
+          <x-map></x-map>
         </app-header-layout>
       </app-drawer-layout>
     </template>
