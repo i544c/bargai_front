@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "shopname": "rouge koume",
     "description": "怖いもの好きの可愛い店員さんが働いています。",
     "position": {
@@ -7,12 +8,13 @@
       "lng": 140.7265982
     },
     "open": {
-      "start": "22:00",
+      "start": "16:00",
       "end": "26:00"
     }
   },
 
   {
+    "id": 2,
     "shopname": "shimeji",
     "description": "超きのこ。",
     "position": {
@@ -20,7 +22,7 @@
       "lng": 140.731406
     },
     "open": {
-      "start": "15:00",
+      "start": "12:00",
       "end": "23:00"
     }
   }
