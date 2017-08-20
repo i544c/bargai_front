@@ -13,7 +13,7 @@
       display: none;
     }
     app-toolbar {
-      background-color: rgb(254,202,97);
+      background-color: #570071;
       color: white;
       --app-toolbar-font-size: 24px;
     }
@@ -25,6 +25,11 @@
     }
     </style>
 
+    <iron-ajax
+      auto
+      url="data/map_style.json"
+      last-response="{{mapstyle}}"
+    ></iron-ajax>
     <iron-ajax
       auto
       url="data/shops.json"
@@ -46,7 +51,7 @@
           </app-toolbar>
         </app-header>
         <google-map disable-default-ui single-info-window
-          gesture-handling="greedy"
+          gesture-handling="greedy" styles=[[mapstyle]]
           latitude="41.7741117" longitude="140.7209939" zoom="14" min-zoom="14">
 
           <template is="dom-repeat" items="[[shops]]">
