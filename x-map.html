@@ -27,7 +27,7 @@
         <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]" icon="[[set_icon(item.open)]]">
           <p><b>[[item.shopname]]</b></p>
           <small>[[item.description]]</small>
-          <p>[[is_open_string(item)]]</p>
+          <p>[[is_open_string(item.open)]]</p>
         </google-map-marker>
       </template>
 
@@ -39,13 +39,12 @@
     static get is() {return 'x-map';}
     set_icon(open) {
       if(this.is_open(open))
-        return "http://localhost:8080/icon/pin_blue.png";
+        return "icon/pin_blue.png";
       else
-        return "http://localhost:8080/icon/pin_red.png";
+        return "icon/pin_red.png";
     }
-    is_open_string(shop) {
-      //TODO: ココで開いている店舗のリストを作って、表示したい。
-      return this.is_open(shop.open) ? "営業中" : "本日の営業は終了しました";
+    is_open_string(open) {
+      return this.is_open(open) ? "営業中" : "本日の営業は終了しました";
     }
     is_open(open) {
       let s = new Date();
