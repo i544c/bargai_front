@@ -47,7 +47,7 @@
         return "icon/pin_red.png";
     }
     is_open_string(open) {
-      return this.is_open(open) ? "営業中" : "本日の営業は終了しました";
+      return this.is_open(open) ? "営業中" : "営業時間外です";
     }
     is_open(open) {
       let s = new Date();
