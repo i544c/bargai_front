@@ -1,0 +1,97 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/app-layout/app-layout.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/google-map/google-map.html">
+
+<dom-module id="x-app">
+  <template>
+    <style>
+    app-drawer-layout:not([narrow]) [drawer-toggle] {
+      display: none;
+    }
+    app-toolbar {
+      background-color: rgb(254,202,97);
+      color: white;
+      --app-toolbar-font-size: 24px;
+    }
+    google-map {
+      width: 100%;
+      height: 100vh;
+      height: -webkit-calc(100vh - 64px);
+      height: calc(100vh - 64px);
+    }
+    </style>
+
+    <iron-ajax
+      auto
+      url="data/shops.json"
+      last-response="{{shops}}"
+    ></iron-ajax>
+
+    <app-drawer-layout>
+      <app-drawer slot="drawer">
+        営業中のお店
+        <template is="dom-repeat" items="[[shops]]" filter="is_open" observer="open">
+          <p>[[item.shopname]]</p>
+        </template>
+      </app-drawer>
+      <app-header-layout>
+        <app-header slot="header" fixed>
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <div main-title>Sake Map</div>
+          </app-toolbar>
+        </app-header>
+        <google-map disable-default-ui single-info-window
+          gesture-handling="greedy"
+          latitude="41.7741117" longitude="140.7209939" zoom="14" min-zoom="14">
+
+          <template is="dom-repeat" items="[[shops]]">
+            <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]" icon="[[set_icon(item)]]">
+              <p><b>[[item.shopname]]</b></p>
+              <small>[[item.description]]</small>
+              <p>
+                [[is_open_string(item)]]<br>
+                <small>営業時間　[[item.open.start]] ~ [[item.open.end]]</small>
+              </p>
+            </google-map-marker>
+          </template>
+
+        </google-map>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+  class XApp extends Polymer.Element {
+    static get is() {return 'x-app';}
+    set_icon(shop) {
+      if(this.is_open(shop))
+        return "icon/pin_blue.png";
+      else
+        return "icon/pin_red.png";
+    }
+    is_open_string(open) {
+      return this.is_open(open) ? "営業中" : "営業時間外です";
+    }
+    is_open(shop) {
+      let s = new Date();
+      let e = new Date();
+      let n = new Date();
+      let s_h, s_m, e_h, e_m;
+      [s_h, s_m] = shop.open.start.split(':');
+      [e_h, e_m] = shop.open.end.split(':');
+      s.setHours(s_h, s_m);
+      e.setHours(e_h, e_m);
+      if(e_h > 24 && n.getHours() < 5) {
+        s.setDate(s.getDate() - 1);
+        e.setDate(e.getDate() - 1);
+      }
+      return s < n && e > n;
+    }
+  }
+  customElements.define(XApp.is, XApp);
+  </script>
+</dom-module>
