@@ -1,6 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="bower_components/app-layout/app-layout.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/google-map/google-map.html">
@@ -30,11 +31,11 @@
       last-response="{{shops}}"
     ></iron-ajax>
 
-    <app-drawer-layout>
+    <app-drawer-layout id="drawerLayout">
       <app-drawer slot="drawer" id="drawer">
         営業中のお店
         <template is="dom-repeat" items="[[shops]]" filter="is_open" observer="open">
-          <p id$="[[item.id]]" on-click="shop_click">[[item.shopname]]</p>
+          <paper-item id$="[[item.id]]" on-click="shop_click">[[item.shopname]]</paper-item>
         </template>
       </app-drawer>
       <app-header-layout>
@@ -80,7 +81,7 @@
     }
     shop_click(e) {
       this.opened_markerid = e.target.id;
-      this.$.drawer.close();
+      if(this.$.drawerLayout.narrow) this.$.drawer.close();
     }
     compute_marker_open(id, openid) {
       return id == openid;
