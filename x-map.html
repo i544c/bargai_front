@@ -27,7 +27,10 @@
         <google-map-marker slot="markers" latitude="[[item.position.lat]]" longitude="[[item.position.lng]]" icon="[[set_icon(item.open)]]">
           <p><b>[[item.shopname]]</b></p>
           <small>[[item.description]]</small>
-          <p>[[is_open_string(item.open)]]</p>
+          <p>
+            [[is_open_string(item.open)]]<br>
+            <small>営業時間　[[item.open.start]] ~ [[item.open.end]]</small>
+          </p>
         </google-map-marker>
       </template>
 
